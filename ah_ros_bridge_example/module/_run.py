@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # _run.py
 """Run node for ah_ros_bridge_example.
 """

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # run.py
 """ROS2 Entrypoint for 'ah-ros-bridge-example'.
 """
