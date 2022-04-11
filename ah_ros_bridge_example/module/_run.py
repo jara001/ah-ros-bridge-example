@@ -13,6 +13,10 @@ from aclpy.interface import ArrowheadInterface
 from aclpy.server import ArrowheadServer
 from aclpy.service import ArrowheadService
 
+import websocket, json
+
+from std_msgs.msg import Time
+
 
 ######################
 # RunNode
@@ -72,3 +76,35 @@ class RunNode(Node):
         print ("Found %d provider(s):" % len(matches))
         for _i, match in enumerate(matches):
             print ("\t%d: %s:%d" % (_i + 1, match.get("provider").address, match.get("provider").port))
+
+
+        self.pub_time = self.Publisher("lap_time", Time, queue_size = 1)
+        self.last_time = None
+
+
+        self.provider_address = matches[0].get("service").metadata.get("address", matches[0].get("provider").address)
+        self.provider_port = matches[0].get("provider").port
+
+        self.websocket = websocket.WebSocketApp("ws://%s:%d/" % (self.provider_address, self.provider_port), on_message = self.on_message, on_error = self.on_error)
+
+        self.websocket.run_forever()
+
+
+    def on_message(self, ws, message):
+
+        m = json.loads(message)
+
+        if self.last_time is not None:
+            us = m["timestamp"] - self.last_time
+
+            msg = Time()
+            msg.data.secs = int(us / 1e6)
+            msg.data.nsecs = int((us % 1e6) * 1e3)
+
+            self.pub_time.publish(msg)
+
+        self.last_time = m["timestamp"]
+
+
+    def on_error(self, ws, error):
+        print ("Received error: ", error)
