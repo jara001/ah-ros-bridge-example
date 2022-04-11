@@ -1,2 +1,5 @@
 *.pyc
 __cache__
+
+# Private configuration
+configuration.py
