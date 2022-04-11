@@ -25,6 +25,8 @@
   <exec_depend condition="$ROS_VERSION == 2">rclpy</exec_depend>
 
   <exec_depend version_gte="0.4.1">autopsy</exec_depend>
+  <exec_depend>python-websocket-client</exec_depend>
+  <exec_depend version_gte="0.2.0">aclpy</exec_depend>
 
   <!-- Any other parameters can be stored here. -->
   <export>
