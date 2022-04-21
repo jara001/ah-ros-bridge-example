@@ -1,6 +1,8 @@
 # ah_ros_bridge_example
 Example of a ROS connector for Arrowhead Framework.
 
+**For a real example and latest updates see [ah-ros-barrier](https://github.com/jara001/ah-ros-barrier).**
+
 
 ## Requirements
 - `autopsy >= 0.4.1`, download [here](https://github.com/jara001/autopsy)
